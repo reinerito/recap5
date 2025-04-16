@@ -1,4 +1,5 @@
 import FavoriteButton from "./FavoriteButton";
+import ColorPalette from "./ColorPalette";
 
 export default function ArtPieceDetails({
   piece,
@@ -16,6 +17,7 @@ export default function ArtPieceDetails({
       <p>Artist: {piece.artist}</p>
       <p>Year: {piece.year}</p>
       <p>Genre: {piece.genre}</p>
+      <ColorPalette colors={piece.colors} />
       <FavoriteButton
         slug={piece.slug}
         isFavorite={isFavorite}
