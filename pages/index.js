@@ -1,23 +1,10 @@
-import { useState, useEffect } from "react";
+import { getArtPieces, getRandomArtPiece } from "../utils/art";
 
-export default function Spotlight() {
-  const [spotlightPiece, setSpotlightPiece] = useState(null);
-
-  useEffect(() => {
-    async function fetchAndSelectArtPiece() {
-      const response = await fetch("https://example-apis.vercel.app/api/art");
-      const data = await response.json();
-      const randomIndex = Math.floor(Math.random() * data.length);
-      setSpotlightPiece(data[randomIndex]);
-    }
-
-    fetchAndSelectArtPiece();
-  }, []);
-
+export default function Spotlight({ artPiece }) {
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Art Spotlight</h1>
-      {spotlightPiece && (
+      {artPiece && (
         <div
           style={{
             textAlign: "center",
@@ -31,15 +18,15 @@ export default function Spotlight() {
           }}
         >
           <img
-            src={spotlightPiece.imageSource}
-            alt={spotlightPiece.name}
+            src={artPiece.imageSource}
+            alt={artPiece.name}
             style={{
               width: "400px",
               borderRadius: "4px",
             }}
           />
-          <h2>{spotlightPiece.name}</h2>
-          <p>Artist: {spotlightPiece.artist}</p>
+          <h2>{artPiece.name}</h2>
+          <p>Artist: {artPiece.artist}</p>
         </div>
       )}
     </div>
