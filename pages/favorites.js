@@ -1,39 +1,5 @@
 import { useState, useEffect } from "react";
-import FavoriteButton from "../components/FavoriteButton";
-
-function ArtPiece({ piece, isFavorite, onToggleFavorite }) {
-  return (
-    <div
-      style={{
-        textAlign: "center",
-        border: "1px solid #ddd",
-        borderRadius: "8px",
-        padding: "20px",
-        margin: "20px",
-        maxWidth: "300px",
-        marginLeft: "auto",
-        marginRight: "auto",
-        backgroundColor: isFavorite ? "#fff8dc" : "white",
-      }}
-    >
-      <img
-        src={piece.imageSource}
-        alt={piece.name}
-        style={{
-          width: "200px",
-          borderRadius: "4px",
-        }}
-      />
-      <h3>{piece.name}</h3>
-      <p>Artist: {piece.artist}</p>
-      <FavoriteButton
-        slug={piece.slug}
-        isFavorite={isFavorite}
-        onToggleFavorite={onToggleFavorite}
-      />
-    </div>
-  );
-}
+import ArtPiece from "./gallery";
 
 export default function Favorites({ favorites, onToggleFavorite }) {
   const [artPieces, setArtPieces] = useState([]);
