@@ -1,18 +1,12 @@
-// Import necessary hooks from React
 import { useState, useEffect } from "react";
 
-// Main Spotlight component
 export default function Spotlight() {
-  // State to store the spotlight art piece
   const [spotlightPiece, setSpotlightPiece] = useState(null);
 
-  // Fetch data and select random piece when component mounts
   useEffect(() => {
     async function fetchAndSelectArtPiece() {
       const response = await fetch("https://example-apis.vercel.app/api/art");
       const data = await response.json();
-
-      // Select random piece
       const randomIndex = Math.floor(Math.random() * data.length);
       setSpotlightPiece(data[randomIndex]);
     }
@@ -20,7 +14,6 @@ export default function Spotlight() {
     fetchAndSelectArtPiece();
   }, []);
 
-  // Render the spotlight
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Art Spotlight</h1>
@@ -51,4 +44,10 @@ export default function Spotlight() {
       )}
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const pieces = await getArtPieces();
+  const artPiece = getRandomArtPiece(pieces);
+  return { props: { artPiece } };
 }
