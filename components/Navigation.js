@@ -34,11 +34,22 @@ export default function Navigation() {
         href="/gallery"
         passHref
         style={{
+          marginRight: "20px",
           color: currentPath === "/gallery" ? "blue" : "black",
           textDecoration: "none",
         }}
       >
         Gallery
+      </Link>
+      <Link
+        href="/favorites"
+        passHref
+        style={{
+          color: currentPath === "/favorites" ? "blue" : "black",
+          textDecoration: "none",
+        }}
+      >
+        Favorites
       </Link>
     </footer>
   );
