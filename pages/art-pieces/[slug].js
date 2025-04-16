@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import FavoriteButton from "../../components/FavoriteButton";
 
-export default function ArtPieceDetails() {
+export default function ArtPieceDetails({ favorites, onToggleFavorite }) {
   const router = useRouter();
   const { slug } = router.query;
   const [piece, setPiece] = useState(null);
@@ -35,6 +36,7 @@ export default function ArtPieceDetails() {
           maxWidth: "500px",
           marginLeft: "auto",
           marginRight: "auto",
+          backgroundColor: favorites.includes(piece.slug) ? "#fff8dc" : "white",
         }}
       >
         <img
@@ -49,6 +51,11 @@ export default function ArtPieceDetails() {
         <p>Artist: {piece.artist}</p>
         <p>Year: {piece.year}</p>
         <p>Genre: {piece.genre}</p>
+        <FavoriteButton
+          slug={piece.slug}
+          isFavorite={favorites.includes(piece.slug)}
+          onToggleFavorite={onToggleFavorite}
+        />
         <Link href="/gallery" passHref>
           <button
             style={{

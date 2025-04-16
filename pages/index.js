@@ -1,6 +1,7 @@
 import { getArtPieces, getRandomArtPiece } from "../utils/art";
+import FavoriteButton from "../components/FavoriteButton";
 
-export default function Spotlight({ artPiece }) {
+export default function Spotlight({ artPiece, favorites, onToggleFavorite }) {
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Art Spotlight</h1>
@@ -15,6 +16,9 @@ export default function Spotlight({ artPiece }) {
             maxWidth: "500px",
             marginLeft: "auto",
             marginRight: "auto",
+            backgroundColor: favorites.includes(artPiece.slug)
+              ? "#fff8dc"
+              : "white",
           }}
         >
           <img
@@ -27,6 +31,11 @@ export default function Spotlight({ artPiece }) {
           />
           <h2>{artPiece.name}</h2>
           <p>Artist: {artPiece.artist}</p>
+          <FavoriteButton
+            slug={artPiece.slug}
+            isFavorite={favorites.includes(artPiece.slug)}
+            onToggleFavorite={onToggleFavorite}
+          />
         </div>
       )}
     </div>
