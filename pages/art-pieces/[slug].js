@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import FavoriteButton from "../../components/FavoriteButton";
+import ColorPalette from "../../components/ColorPalette";
 
 export default function ArtPieceDetails({ favorites, onToggleFavorite }) {
   const router = useRouter();
@@ -51,6 +52,7 @@ export default function ArtPieceDetails({ favorites, onToggleFavorite }) {
         <p>Artist: {piece.artist}</p>
         <p>Year: {piece.year}</p>
         <p>Genre: {piece.genre}</p>
+        <ColorPalette colors={piece.colors} />
         <FavoriteButton
           slug={piece.slug}
           isFavorite={favorites.includes(piece.slug)}
