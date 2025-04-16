@@ -3,11 +3,14 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import FavoriteButton from "../../components/FavoriteButton";
 import ColorPalette from "../../components/ColorPalette";
+import Comment from "../../components/Comment";
+import CommentForm from "../../components/CommentForm";
 
 export default function ArtPieceDetails({ favorites, onToggleFavorite }) {
   const router = useRouter();
   const { slug } = router.query;
   const [piece, setPiece] = useState(null);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     async function fetchArtPiece() {
@@ -19,8 +22,24 @@ export default function ArtPieceDetails({ favorites, onToggleFavorite }) {
 
     if (slug) {
       fetchArtPiece();
+      // Load comments from localStorage
+      const savedComments = localStorage.getItem(`comments-${slug}`);
+      if (savedComments) {
+        setComments(JSON.parse(savedComments));
+      }
     }
   }, [slug]);
+
+  function handleAddComment(text) {
+    const newComment = {
+      text,
+      date: new Date().toISOString(),
+    };
+    const newComments = [...comments, newComment];
+    setComments(newComments);
+    // Save comments to localStorage
+    localStorage.setItem(`comments-${slug}`, JSON.stringify(newComments));
+  }
 
   if (!piece) {
     return <div style={{ textAlign: "center" }}>Loading...</div>;
@@ -58,6 +77,15 @@ export default function ArtPieceDetails({ favorites, onToggleFavorite }) {
           isFavorite={favorites.includes(piece.slug)}
           onToggleFavorite={onToggleFavorite}
         />
+
+        <div style={{ marginTop: "20px" }}>
+          <h3>Comments</h3>
+          <CommentForm onSubmit={handleAddComment} />
+          {comments.map((comment, index) => (
+            <Comment key={index} text={comment.text} date={comment.date} />
+          ))}
+        </div>
+
         <Link href="/gallery" passHref>
           <button
             style={{
