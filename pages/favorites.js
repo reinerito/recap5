@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
-import ArtPiece from "./gallery";
+import ArtPiece from "../components/ArtPiece";
 
 export default function Favorites({ favorites, onToggleFavorite }) {
   const [artPieces, setArtPieces] = useState([]);
 
   useEffect(() => {
-    async function fetchArtPieces() {
-      const response = await fetch("https://example-apis.vercel.app/api/art");
-      const data = await response.json();
-      setArtPieces(data);
-    }
-
-    fetchArtPieces();
+    fetch("https://example-apis.vercel.app/api/art")
+      .then((response) => response.json())
+      .then((data) => setArtPieces(data));
   }, []);
 
   // Filter to show only favorite pieces

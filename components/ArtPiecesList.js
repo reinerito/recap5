@@ -2,12 +2,10 @@ import ArtPiecePreview from "./ArtPiecePreview";
 
 export default function ArtPiecesList({ pieces }) {
   return (
-    <ul>
+    <div>
       {pieces.map((piece) => (
-        <li key={piece.slug}>
-          <ArtPiecePreview piece={piece} />
-        </li>
+        <ArtPiecePreview key={piece.slug} piece={piece} />
       ))}
-    </ul>
+    </div>
   );
 }
